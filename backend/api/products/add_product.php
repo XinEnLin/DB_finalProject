@@ -9,13 +9,16 @@ if (!isset($_SESSION['username']) || $_SESSION['username'] !== 'boss') {
     exit;
 }
 
-require_once(__DIR__ . '/../../../config/db.php');
+require_once(__DIR__ . '/../../config/db.php');
 
 $data = json_decode(file_get_contents('php://input'), true);
 
 $name = $data['name'] ?? '';
 $price = $data['price'] ?? 0;
 $description = $data['description'] ?? '';
+$stock = $data['stock'] ?? 0;
+$category = $data['category'] ?? '';
+$imagePath = $data['imagePath'] ?? '';
 
 if (!$name || !$price) {
     echo json_encode(['success' => false, 'message' => '請填寫商品名稱與價格']);
@@ -23,8 +26,8 @@ if (!$name || !$price) {
 }
 
 try {
-    $stmt = $conn->prepare("INSERT INTO [product] (name, price, description) VALUES (?, ?, ?)");
-    $stmt->execute([$name, $price, $description]);
+    $stmt = $conn->prepare("INSERT INTO [product] (name, description, price, stock, category, imagePath) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->execute([$name, $description, $price, $stock, $category, $imagePath]);
     echo json_encode(['success' => true, 'message' => '新增成功']);
 } catch (PDOException $e) {
     echo json_encode(['success' => false, 'message' => '新增失敗', 'error' => $e->getMessage()]);
