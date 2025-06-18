@@ -12,6 +12,8 @@
         <p class="category">分類：{{ product.category }}</p>
         <p class="stock">庫存：{{ product.stock }}</p>
         <p class="desc">{{ product.description }}</p>
+        <button @click="addToCart(product.productID)">加入購物車</button>
+
       </div>
     </div>
   </div>
@@ -39,6 +41,22 @@ const fetchProducts = async () => {
 }
 
 onMounted(fetchProducts)
+
+const addToCart = async (productID) => {
+  try {
+    const res = await fetch('/DB_finalProject/backend/api/cart/add_cart.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ productID, quantity: 1 })
+    })
+    const data = await res.json()
+    alert(data.message || '加入購物車成功')
+  } catch (err) {
+    alert('加入購物車失敗，請稍後再試')
+  }
+}
+
 </script>
 
 <style scoped>
