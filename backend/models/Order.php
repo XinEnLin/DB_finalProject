@@ -23,4 +23,20 @@ class Order {
         $stmt->execute([$userID]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getAllOrders() {
+        $stmt = $this->conn->prepare("SELECT * FROM [order] ORDER BY orderDate DESC");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function updateStatus($orderID, $status) {
+        $stmt = $this->conn->prepare("UPDATE [order] SET status = ? WHERE orderID = ?");
+        return $stmt->execute([$status, $orderID]);
+    }
+
+    public function deleteOrder($orderID) {
+        $stmt = $this->conn->prepare("DELETE FROM [order] WHERE orderID = ?");
+        return $stmt->execute([$orderID]);
+    }
 }

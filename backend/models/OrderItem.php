@@ -27,4 +27,9 @@ class OrderItem {
         $stmt->execute([$orderID]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function deleteByOrder($orderID) {
+        $stmt = $this->conn->prepare("DELETE FROM order_item WHERE orderID = ?");
+        return $stmt->execute([$orderID]);
+    }   
 }

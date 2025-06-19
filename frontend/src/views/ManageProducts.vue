@@ -1,5 +1,5 @@
 <template>
-  <div class="boss-dashboard">
+  <div class="manage-products">
     <h2>新增商品</h2>
     <input v-model="name" placeholder="商品名稱" />
     <input v-model.number="price" type="number" placeholder="價格" />

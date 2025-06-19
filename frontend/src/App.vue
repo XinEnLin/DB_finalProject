@@ -36,12 +36,6 @@ const logout = async () => {
         <span>歡迎，{{ user.username }}</span>
         <button @click="logout" style="margin-left:10px;">登出</button>
 
-        <template v-if="user.role === 'boss'">
-          <RouterLink to="/boss">
-            <button style="margin-left: 10px;">後台管理</button>
-          </RouterLink>
-
-        </template>
       </template>
       <template v-else>
         <RouterLink to="/login">請先登入</RouterLink>
@@ -51,7 +45,17 @@ const logout = async () => {
     <nav class="banner">
       <RouterLink to="/">首頁</RouterLink>
       <RouterLink to="/products">商品列表</RouterLink>
-      <RouterLink to="/cart">購物車</RouterLink>
+
+      <!-- 一般用戶看到的選單 -->
+      <template v-if="user && user.role === 'user'">
+        <RouterLink to="/cart">購物車</RouterLink>
+        <RouterLink to="/orders">查看訂單</RouterLink>
+      </template>
+      <!-- boss 看到的選單 -->
+      <template v-else-if="user && user.role === 'boss'">
+        <RouterLink to="/manage-orders">管理訂單</RouterLink>
+        <RouterLink to="/manage-products">管理商品</RouterLink>
+      </template>
       
     </nav>
     <main class="center-content">

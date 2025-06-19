@@ -22,7 +22,7 @@ WHERE c.userID = ?
 ";
 
 $stmt = $conn->prepare($sql);
-$stmt->execute([$userID]);
+$stmt->execute([$userID]);  
 $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 echo json_encode($cartItems);

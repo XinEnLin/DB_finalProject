@@ -1,5 +1,7 @@
 <?php
 require_once(__DIR__ . '/../config/db.php');
+require_once(__DIR__ . '/../models/Order.php');
+require_once(__DIR__ . '/../models/OrderItem.php');
 
 class Cart {
     private $conn;
@@ -79,8 +81,25 @@ class Cart {
 
     // ✅ 結帳（清空購物車，實際可擴充為建立訂單）
     public function checkout($userID) {
-        // 這裡簡單清空購物車
-        return $this->clear($userID);
+        $items = $this->getAll($userID);
+        if (empty($items)) return false;
+
+        $total = $this->getTotal($userID);
+
+        // 建立訂單
+        $order = new Order($this->conn);
+        $orderID = $order->createOrder($userID, $total);
+
+        // 寫入每一筆 order_item
+        $orderItem = new OrderItem($this->conn);
+        foreach ($items as $item) {
+            $orderItem->addItem($orderID, $item['productID'], $item['quantity'], $item['price']);
+        }
+
+        // 清空購物車
+        $this->clear($userID);
+
+        return $orderID;
     }
         
 }
