@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . '/../src/Cart.php');
+require_once(__DIR__ . '/../models/Cart.php');
 require_once(__DIR__ . '/../models/Order.php');
 require_once(__DIR__ . '/../models/OrderItem.php');
 
