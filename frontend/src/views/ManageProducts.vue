@@ -33,8 +33,8 @@
 import { ref, onMounted } from 'vue'
 
 const name = ref('')
-const price = ref(0)
-const stock = ref(0)
+const price = ref(null)
+const stock = ref(null)
 const category = ref('')
 const description = ref('')
 const imagePath = ref('')
