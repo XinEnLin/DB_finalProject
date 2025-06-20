@@ -1,6 +1,6 @@
 <template>
   <div class="cart">
-    <h2>🛒 購物車</h2>
+    <h2>購物車</h2>
     <div v-if="items.length === 0" class="empty-message">您的購物車是空的</div>
     <table v-else>
       <thead>

@@ -1,7 +1,10 @@
 <template>
   <div class="welcome-container">
     <h1> 歡迎來到超讚小店 </h1>
+     <!-- <h1> 資料庫管理 期末專案 </h1> -->
+     <!-- <h2> 超讚小店 </h2> -->
     <p>這裡是我們的首頁，歡迎瀏覽商品與註冊成為會員！</p>
+     <!-- <p>411530026 資管三 林新恩</p> -->
     <button @click="goToMain" class="start-button">開始探索</button>
   </div>
 </template>

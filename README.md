@@ -1,57 +1,95 @@
-# 購物系統開發紀錄
+# 超讚小店專案
 
 ## 專案簡介
 
-本專案為一個以 PHP + SQL + Session 開發的簡易購物系統，支援商品瀏覽、購物車管理、登入驗證與後台商品管理功能。
+本專案為一個整合 **PHP + SQL Server + Session** 後端與 **Vue 3 + Vite** 前端的購物系統，支援商品瀏覽、購物車管理、登入驗證、訂單管理、管理者後台、PDF 發票下載等功能。
 
 ---
 
 ##  專案目錄結構
-ˋˋˋplaintext
-? DB_FinalProject/
-├── asset/
-│   ├── css/
-│   │   └── style.css
-│   ├── images/
-│   └── js/
-│       └── main.js
-├── config/
-│   └── db.php                      # 資料庫連線設定
-├── layouts/                        # 頁面框架與佈局
-│   └── （可建立 admin_layout.php / index_layout.php）
-├── public/                         # 前台與後台頁面入口
-│   ├── boss_dashboard.php
-│   ├── index.php
-│   ├── list_cart.php
-│   ├── list_product.php
-│   ├── login.php
-│   ├── logout.php
-│   ├── register.php
-│   └── test.php
-├── src/                            # 程式邏輯與資料處理類別
-│   ├── Cart.php
-│   ├── Order.php
-│   ├── OrderItem.php
-│   ├── Product.php
-│   └── User.php
-├── README.md
-ˋˋˋ
+
+```plaintext
+DB_FinalProject/
+├── backend/                      # PHP 後端 API 與邏輯
+│   ├── api/                      # API 端點（供前端呼叫）
+│   │   ├── auth/                 # 使用者驗證 API
+│   │   │   ├── login.php
+│   │   │   ├── logout.php
+│   │   │   └── register.php
+│   │   ├── cart/                 # 購物車相關 API
+│   │   │   ├── add_cart.php
+│   │   │   ├── checkout_cart.php
+│   │   │   ├── clear_cart.php
+│   │   │   ├── delete_cart.php
+│   │   │   ├── list_cart.php
+│   │   │   └── update_cart.php
+│   │   ├── order/                # 訂單相關 API
+│   │   │   ├── boss_orders.php
+│   │   │   ├── update_order_status.php
+│   │   │   └── user_orders.php
+│   │   └── products/             # 商品上傳 API（略）
+│
+│   ├── config/                   # 設定檔
+│   │   └── db.php                # 資料庫連線設定
+│
+│   ├── controllers/             # 控制器（整理邏輯流程）
+│   │   ├── CartController.php
+│   │   ├── OrderController.php
+│   │   └── ProductController.php
+│
+│   └── models/                  # 資料操作模型
+│       ├── Cart.php
+│       ├── Order.php
+│       ├── OrderItem.php
+│       ├── Product.php
+│       └── User.php
+│
+├── frontend/                    # Vue 前端應用
+│   ├── public/                  # 公共資源
+│   │   ├── images/              # 靜態圖片資源
+│   │   └── icons/               # 網站 favicon、圖示等
+│
+│   ├── src/
+│   │   ├── assets/              # CSS、圖片等資源
+│   │   ├── components/          # 可重用元件（目前為空）
+│   │   ├── router/              # Vue Router 設定
+│   │   │   └── index.js
+│   │   ├── views/               # 各頁面元件
+│   │   │   ├── Cart.vue
+│   │   │   ├── Login.vue
+│   │   │   ├── ManageOrders.vue
+│   │   │   ├── ManageProducts.vue
+│   │   │   ├── Order.vue
+│   │   │   ├── ProductList.vue
+│   │   │   └── Register.vue
+│   │   ├── App.vue              # 頁面主框架
+│   │   └── main.js              # Vue app 入口
+│
+│   ├── package.json             # npm 相依與啟動腳本
+│   └── vite.config.js           # Vite 設定
+│
+├── .gitignore
+├── package-lock.json
+├── README.md                    # 說明文件
+
+```
 
 ---
 
-## ? 功能模組說明
-
-| 模組            | 說明                         |
-|-----------------|------------------------------|
-| `index.php`     | 顯示商品並可加入購物車       |
-| `Cart.php`      | 管理購物車的加入與移除邏輯   |
-| `list_cart.php` | 顯示購物車商品清單           |
-| `boss_dashboard.php` | 管理商品的新增、編輯、刪除 |
-| `Product.php`   | 負責商品的 CRUD 操作         |
+## 功能模組說明
+| 模組             | 技術         | 說明                                     |
+|------------------|--------------|------------------------------------------|
+| 登入 / 註冊系統  | PHP + Session | 支援帳號登入驗證、身份權限控管           |
+| 商品瀏覽         | Vue 前端     | Vue Router 管理路由，商品以卡片方式展示 |
+| 購物車功能       | Session + API | 可加入、修改數量、刪除、結帳             |
+| 訂單記錄         | Vue + API    | 支援顧客查看訂單，管理者更新出貨狀態     |
+| 管理後台         | Vue + API    | 管理商品（CRUD）與訂單狀態變更           |
+| PDF 發票下載     | jsPDF        | 由使用者端渲染訂單內容並下載為 PDF        |
+| 畫面切換動畫     | CSS + Vue    | 使用 `<transition>` 實現淡入淡出效果     |
 
 ---
 
-## ? 開發日誌
+##  開發日誌
 
 | 日期        | 項目                       | 備註                           |
 |-------------|----------------------------|--------------------------------|
@@ -64,40 +102,28 @@
 | 2025/05/16  | 購物車有bug     |    |
 | 2025/05/19  | 加入購物車有fatal error
 | 2025/05/21  | 加入購物車成功，購物車還有bug
+| 2025/06/15  | 完成基本 Vue Router 架構          | 支援路由與登入後導向             |
+| 2025/06/16  | 串接 API 顯示商品與加入購物車     | 商品卡片元件 + Vue ref 設定     |
+| 2025/06/17  | 購物車邏輯完成                     | 增加 / 刪除 / 清空 / 結帳       |
+| 2025/06/18  | 訂單頁面完成 + 收合明細切換        | 展開/收合列表 + 美化樣式        |
+| 2025/06/19  | 加入發票 PDF 下載                  | 使用 html2canvas + jsPDF         |
+| 2025/06/20  | 全站加入轉場動畫與 header 導覽     | `<transition>` + scoped CSS     |
+
 ---
 
-## ? 待辦清單
-
- ? TODO 開發項目（2024-05-13）
-
-- [ ] ? 檢查登出路由邏輯：
-  - 登出目前使用 `index.php?action=logout`，透過 `User::logout()` 實作
-  - 建議封裝為單獨 `logout.php` 檔案（可選）
-
-- [ ] ?? 頁面提示訊息優化：
-  - 註冊成功、登入成功應使用 `$_SESSION['message']` 統一處理顯示
-  - 可抽出 `partials/message.php` 顯示一次後自動消失
-
-- [ ] ? 加入購物車後 UI 反饋：
-  - 可顯示「? 已加入購物車」訊息
-  - 或將購物車數量顯示在頁面右上角
-
-- [ ] ? 重構 session 結構與登入狀態檢查：
-  - 建立 `User::isLoggedIn()` 方法已完成
-  - 所有需登入頁面（如購物車、結帳、會員中心）需驗證登入狀態
-
-- [ ] ? 登入後自動帶入使用者資料（email / 地址 / 電話）
-  - 可透過 `$_SESSION['user']` 儲存完整資訊，減少查詢次數
-  
-- [ ]  boss mode下在首頁要可以回到dashboard
 
 
-## ? 使用方式
+##  使用方式
 
-1. 安裝 Apache + PHP + MySQL 環境（建議使用 XAMPP）
-2. 將專案放入 `htdocs/` 目錄下
-3. 匯入資料庫腳本（若有）
-4. 進入首頁： [http://localhost/DB_finalProject/public/index.php](http://localhost/DB_finalProject/public/index.php)
+1. 安裝環境：需有 Apache + PHP + SQL Server
+2. 前端建置：
+   ```bash
+   cd frontend
+   npm install
+   npm run dev -- --host
+3. 匯入後端資料庫（database.sql）
+
+4. 瀏覽前端：http://localhost:5173/
 
 ---
 
