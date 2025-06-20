@@ -4,7 +4,7 @@ header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json");
 
 session_start();
-if (!isset($_SESSION['username']) || $_SESSION['username'] !== 'boss') {
+if (!isset($_SESSION['username']) || $_SESSION['username'] !== 'admin') {
     echo json_encode(['success' => false, 'message' => '權限不足']);
     exit;
 }

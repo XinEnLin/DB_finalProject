@@ -24,7 +24,7 @@ const message = ref('')
 const register = async () => {
   message.value = ''
   try {
-    const res = await fetch('http://localhost/DB_finalProject/backend/api/auth/register.php', {
+    const res = await fetch('/DB_finalProject/backend/api/auth/register.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

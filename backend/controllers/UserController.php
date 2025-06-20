@@ -14,7 +14,7 @@ class UserController {
             session_start();
             $_SESSION['user_id'] = $user['id'] ?? $user['userID'] ?? null;
             $_SESSION['username'] = $user['username'];
-            $_SESSION['role'] = ($user['username'] === 'boss') ? 'boss' : 'user';
+            $_SESSION['role'] = ($user['username'] === 'admin') ? 'admin' : 'user';
             echo json_encode([
                 'success' => true,
                 'message' => '登入成功',

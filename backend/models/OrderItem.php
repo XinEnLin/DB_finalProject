@@ -29,7 +29,7 @@ class OrderItem {
     }
 
     public function deleteByOrder($orderID) {
-        $stmt = $this->conn->prepare("DELETEFROM order_item WHERE orderID = ?");
+        $stmt = $this->conn->prepare("DELETE FROM order_item WHERE orderID = ?");
         return $stmt->execute([$orderID]);
     }   
 }

@@ -133,31 +133,89 @@ onMounted(fetchProductList)
 </script>
 
 <style scoped>
-.boss-dashboard {
-  padding: 2rem;
+.manage-products {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  color: white;
 }
-input, textarea {
+
+.manage-products h2 {
+  border-bottom: 2px solid #00bcd4;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+input,
+textarea {
   display: block;
-  margin: 0.5rem 0;
+  margin-bottom: 1rem;
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  font-size: 1rem;
 }
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
 button {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
+  background-color: #00bcd4;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 0.5rem;
 }
+
+button:hover {
+  background-color: #0097a7;
+}
+
+.message {
+  color: #ffcc00;
+  margin-top: 0.5rem;
+}
+
 .product-list {
   list-style: none;
   padding: 0;
+  margin-top: 1rem;
 }
+
 .product-list li {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin: 1rem 0;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
+
+.product-list img {
+  width: 100px;
+  height: auto;
+  border-radius: 6px;
+}
+
+.product-list strong {
+  font-size: 1.1rem;
+  color: #fff;
+}
+
 </style>

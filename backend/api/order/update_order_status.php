@@ -6,7 +6,7 @@ require_once(__DIR__ . '/../../models/OrderItem.php');
 header('Content-Type: application/json');
 session_start();
 
-if (!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'boss') {
+if (!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'admin') {
     echo json_encode(['success' => false, 'message' => '無權限']);
     exit;
 }
